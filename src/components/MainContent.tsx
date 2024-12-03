@@ -5,7 +5,6 @@ import { AuthButton } from './AuthButton';
 import PrefaceContent from './PrefaceContent';
 import PreambuleContent from './PreambuleContent';
 import OathContent from './OathContent';
-import HelpContent from './HelpContent';
 import RecentCards from './RecentCards';
 import CategoryGrid from './CategoryGrid';
 import CardList from './CardList';

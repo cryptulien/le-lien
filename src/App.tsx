@@ -1,9 +1,8 @@
 import { Menu } from 'lucide-react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import SearchBar from './components/SearchBar';
 import MainContent from './components/MainContent';
-import { useNavigate } from 'react-router-dom';
 import React, { useState, useCallback, useEffect } from 'react';
 import { categories } from './data/categories';
 import { useFavorites } from './hooks/useFavorites';
@@ -35,7 +34,7 @@ import FineScore from './pages/scores/score-fine';
 import PrefacePage from './pages/static/PrefacePage';
 import PreambulePage from './pages/static/PreambulePage';
 import SermentPage from './pages/static/SermentPage';
-import HelpContent from './components/HelpContent';
+import HelpPage from './pages/static/HelpPage';
 import TermsContent from './pages/TermsContent';
 import LegalContent from './pages/LegalContent';
 
@@ -137,7 +136,7 @@ const AppContent = () => {
         </header>
         
         <main className="flex-1 overflow-y-auto">
-          <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 md:px-8">
+          <div className="max-w-[1400px] mx-auto px-4 pt-24 pb-8 sm:px-6 md:px-8 lg:pl-72">
             <Routes>
               <Route path="/" element={
                 <MainContent
@@ -162,7 +161,7 @@ const AppContent = () => {
               <Route path="/preface" element={<PrefacePage />} />
               <Route path="/preambule" element={<PreambulePage />} />
               <Route path="/serment" element={<SermentPage />} />
-              <Route path="/help" element={<HelpContent />} />
+              <Route path="/help" element={<HelpPage />} />
               <Route path="/terms" element={<TermsContent />} />
               <Route path="/legal" element={<LegalContent />} />
               <Route path="/scores/score-glasgow" element={<GlasgowScore />} />

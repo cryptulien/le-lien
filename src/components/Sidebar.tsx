@@ -9,7 +9,7 @@ import {
   Moon,
   X,
 } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, NavLink } from 'react-router-dom';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -95,21 +95,35 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onNavigate, activeIt
               <ul className="space-y-2">
                 {group.items.map((item) => {
                   const isActive = item.id === activeItem;
-                  return (
-                    <li key={item.label}>
-                      <button
-                        onClick={() => handleItemClick(item)}
-                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                          isActive
-                            ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                            : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'
-                        }`}
-                      >
-                        <item.icon className={`w-5 h-5 ${isActive ? 'text-blue-600 dark:text-blue-400' : ''}`} />
-                        <span className={isActive ? 'font-medium' : ''}>{item.label}</span>
-                      </button>
-                    </li>
-                  );
+                  if (item.id === 'help') {
+                    return (
+                      <li key={item.label}>
+                        <Link
+                          to="/help"
+                          className="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                        >
+                          <HelpCircle className="w-5 h-5" />
+                          <span>Aide</span>
+                        </Link>
+                      </li>
+                    );
+                  } else {
+                    return (
+                      <li key={item.label}>
+                        <button
+                          onClick={() => handleItemClick(item)}
+                          className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                            isActive
+                              ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
+                              : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'
+                          }`}
+                        >
+                          <item.icon className={`w-5 h-5 ${isActive ? 'text-blue-600 dark:text-blue-400' : ''}`} />
+                          <span className={isActive ? 'font-medium' : ''}>{item.label}</span>
+                        </button>
+                      </li>
+                    );
+                  }
                 })}
               </ul>
               {groupIndex < menuGroups.length - 1 && (
