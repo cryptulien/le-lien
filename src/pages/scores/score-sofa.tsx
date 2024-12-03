@@ -89,13 +89,13 @@ const SofaScore: React.FC = () => {
     label: string;
   }> = ({ options, value, onChange, label }) => (
     <div className="mb-3 sm:mb-4">
-      <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
+      <label className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 sm:mb-2">
         {label}
       </label>
       <select
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full p-2 text-sm sm:text-base border rounded-md bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        className="w-full p-2 text-sm sm:text-base border rounded-md bg-white dark:bg-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>
@@ -107,75 +107,147 @@ const SofaScore: React.FC = () => {
   );
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-4 sm:p-6">
-      <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Score SOFA</h1>
-      
-      <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-4 sm:mb-6">
-        <ScoreSelector
-          options={respiratoryOptions}
-          value={respiratoryScore}
-          onChange={setRespiratoryScore}
-          label="Respiration (PaO2/FiO2)"
-        />
+    <div className="container mx-auto p-4 max-w-4xl">
+      <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
+        <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Score SOFA</h1>
         
-        <ScoreSelector
-          options={coagulationOptions}
-          value={coagulationScore}
-          onChange={setCoagulationScore}
-          label="Coagulation (Plaquettes x10³/µL)"
-        />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
+              Respiration (PaO2/FiO2)
+            </h2>
+            {respiratoryOptions.map((option) => (
+              <div key={option.value} className="mb-2">
+                <label className="inline-flex items-center text-gray-700 dark:text-gray-300">
+                  <input
+                    type="radio"
+                    name="respiratory"
+                    value={option.value}
+                    checked={respiratoryScore === option.value}
+                    onChange={() => setRespiratoryScore(option.value)}
+                    className="form-radio text-blue-600 dark:text-blue-500 mr-2"
+                  />
+                  <span>{option.label}</span>
+                </label>
+              </div>
+            ))}
+          </div>
 
-        <ScoreSelector
-          options={liverOptions}
-          value={liverScore}
-          onChange={setLiverScore}
-          label="Foie (Bilirubine µmol/L)"
-        />
+          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
+              Coagulation (Plaquettes x10³/µL)
+            </h2>
+            {coagulationOptions.map((option) => (
+              <div key={option.value} className="mb-2">
+                <label className="inline-flex items-center text-gray-700 dark:text-gray-300">
+                  <input
+                    type="radio"
+                    name="coagulation"
+                    value={option.value}
+                    checked={coagulationScore === option.value}
+                    onChange={() => setCoagulationScore(option.value)}
+                    className="form-radio text-blue-600 dark:text-blue-500 mr-2"
+                  />
+                  <span>{option.label}</span>
+                </label>
+              </div>
+            ))}
+          </div>
 
-        <ScoreSelector
-          options={cardiovascularOptions}
-          value={cardiovascularScore}
-          onChange={setCardiovascularScore}
-          label="Cardiovasculaire"
-        />
+          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
+              Foie (Bilirubine µmol/L)
+            </h2>
+            {liverOptions.map((option) => (
+              <div key={option.value} className="mb-2">
+                <label className="inline-flex items-center text-gray-700 dark:text-gray-300">
+                  <input
+                    type="radio"
+                    name="liver"
+                    value={option.value}
+                    checked={liverScore === option.value}
+                    onChange={() => setLiverScore(option.value)}
+                    className="form-radio text-blue-600 dark:text-blue-500 mr-2"
+                  />
+                  <span>{option.label}</span>
+                </label>
+              </div>
+            ))}
+          </div>
 
-        <ScoreSelector
-          options={cnsOptions}
-          value={cnsScore}
-          onChange={setCnsScore}
-          label="Système nerveux central"
-        />
+          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
+              Cardiovasculaire
+            </h2>
+            {cardiovascularOptions.map((option) => (
+              <div key={option.value} className="mb-2">
+                <label className="inline-flex items-center text-gray-700 dark:text-gray-300">
+                  <input
+                    type="radio"
+                    name="cardiovascular"
+                    value={option.value}
+                    checked={cardiovascularScore === option.value}
+                    onChange={() => setCardiovascularScore(option.value)}
+                    className="form-radio text-blue-600 dark:text-blue-500 mr-2"
+                  />
+                  <span>{option.label}</span>
+                </label>
+              </div>
+            ))}
+          </div>
 
-        <ScoreSelector
-          options={renalOptions}
-          value={renalScore}
-          onChange={setRenalScore}
-          label="Rénal (Créatinine µmol/L ou diurèse)"
-        />
-      </div>
+          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
+              Système nerveux central
+            </h2>
+            {cnsOptions.map((option) => (
+              <div key={option.value} className="mb-2">
+                <label className="inline-flex items-center text-gray-700 dark:text-gray-300">
+                  <input
+                    type="radio"
+                    name="cns"
+                    value={option.value}
+                    checked={cnsScore === option.value}
+                    onChange={() => setCnsScore(option.value)}
+                    className="form-radio text-blue-600 dark:text-blue-500 mr-2"
+                  />
+                  <span>{option.label}</span>
+                </label>
+              </div>
+            ))}
+          </div>
 
-      <div className="bg-blue-50 rounded-lg p-4 sm:p-6">
-        <div className="text-lg sm:text-xl font-semibold mb-2">
-          Score SOFA : {totalScore}/24
+          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
+              Rénal (Créatinine µmol/L ou diurèse)
+            </h2>
+            {renalOptions.map((option) => (
+              <div key={option.value} className="mb-2">
+                <label className="inline-flex items-center text-gray-700 dark:text-gray-300">
+                  <input
+                    type="radio"
+                    name="renal"
+                    value={option.value}
+                    checked={renalScore === option.value}
+                    onChange={() => setRenalScore(option.value)}
+                    className="form-radio text-blue-600 dark:text-blue-500 mr-2"
+                  />
+                  <span>{option.label}</span>
+                </label>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="text-base sm:text-lg">
-          Mortalité estimée : {getMortality(totalScore)}
-        </div>
-      </div>
 
-      <div className="mt-4 sm:mt-6 text-xs sm:text-sm text-gray-600">
-        <h2 className="font-semibold mb-2">Interprétation :</h2>
-        <ul className="list-disc pl-4 sm:pl-5 space-y-1">
-          <li>Score 0-6 : Mortalité &lt; 10%</li>
-          <li>Score 7-9 : Mortalité 15-20%</li>
-          <li>Score 10-12 : Mortalité 40-50%</li>
-          <li>Score 13-14 : Mortalité 50-60%</li>
-          <li>Score 15-24 : Mortalité &gt; 80%</li>
-        </ul>
-        <p className="mt-2">
-          Note : Le score SOFA évalue la défaillance d'organes multiples et aide à 
-          prédire la mortalité en soins intensifs.
-        </p>
+        <div className="mt-6 bg-blue-50 dark:bg-blue-900 p-4 rounded-lg">
+          <h2 className="text-lg font-semibold mb-2 text-blue-800 dark:text-blue-200">Résultat</h2>
+          <div className="text-2xl font-bold text-blue-900 dark:text-blue-100">
+            Score Total : {totalScore}
+          </div>
+          <div className="mt-2 text-lg text-blue-800 dark:text-blue-200">
+            Mortalité estimée : {getMortality(totalScore)}
+          </div>
+        </div>
       </div>
     </div>
   );

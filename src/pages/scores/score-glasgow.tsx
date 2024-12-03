@@ -55,7 +55,7 @@ const GlasgowScore: React.FC = () => {
       <select
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full p-2 text-sm sm:text-base border rounded-md bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        className="w-full p-2 text-sm sm:text-base border rounded-md bg-white dark:bg-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>
@@ -67,48 +67,82 @@ const GlasgowScore: React.FC = () => {
   );
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-4 sm:p-6">
-      <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Score de Glasgow</h1>
-      
-      <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-4 sm:mb-6">
-        <ScoreSelector
-          options={eyeOptions}
-          value={eyeScore}
-          onChange={setEyeScore}
-          label="Réponse oculaire (Y)"
-        />
+    <div className="container mx-auto p-4 max-w-4xl">
+      <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
+        <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Score de Glasgow</h1>
         
-        <ScoreSelector
-          options={verbalOptions}
-          value={verbalScore}
-          onChange={setVerbalScore}
-          label="Réponse verbale (V)"
-        />
-        
-        <ScoreSelector
-          options={motorOptions}
-          value={motorScore}
-          onChange={setMotorScore}
-          label="Réponse motrice (M)"
-        />
-      </div>
-
-      <div className="bg-blue-50 rounded-lg p-4 sm:p-6">
-        <div className="text-lg sm:text-xl font-semibold mb-2">
-          Score total : {totalScore}/15
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
+              Réponse oculaire (Y)
+            </h2>
+            {eyeOptions.map((option) => (
+              <div key={option.value} className="mb-2">
+                <label className="inline-flex items-center text-gray-700 dark:text-gray-300">
+                  <input
+                    type="radio"
+                    name="eye"
+                    value={option.value}
+                    checked={eyeScore === option.value}
+                    onChange={() => setEyeScore(option.value)}
+                    className="form-radio text-blue-600 dark:text-blue-500 mr-2"
+                  />
+                  <span>{option.label}</span>
+                </label>
+              </div>
+            ))}
+          </div>
+          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
+              Réponse verbale (V)
+            </h2>
+            {verbalOptions.map((option) => (
+              <div key={option.value} className="mb-2">
+                <label className="inline-flex items-center text-gray-700 dark:text-gray-300">
+                  <input
+                    type="radio"
+                    name="verbal"
+                    value={option.value}
+                    checked={verbalScore === option.value}
+                    onChange={() => setVerbalScore(option.value)}
+                    className="form-radio text-blue-600 dark:text-blue-500 mr-2"
+                  />
+                  <span>{option.label}</span>
+                </label>
+              </div>
+            ))}
+          </div>
+          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
+              Réponse motrice (M)
+            </h2>
+            {motorOptions.map((option) => (
+              <div key={option.value} className="mb-2">
+                <label className="inline-flex items-center text-gray-700 dark:text-gray-300">
+                  <input
+                    type="radio"
+                    name="motor"
+                    value={option.value}
+                    checked={motorScore === option.value}
+                    onChange={() => setMotorScore(option.value)}
+                    className="form-radio text-blue-600 dark:text-blue-500 mr-2"
+                  />
+                  <span>{option.label}</span>
+                </label>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="text-base sm:text-lg">
-          Interprétation : {getScoreSeverity(totalScore)}
-        </div>
-      </div>
 
-      <div className="mt-4 sm:mt-6 text-xs sm:text-sm text-gray-600">
-        <h2 className="font-semibold mb-2">Note :</h2>
-        <ul className="list-disc pl-4 sm:pl-5 space-y-1">
-          <li>Score de 13 à 15 : Traumatisme crânien léger</li>
-          <li>Score de 9 à 12 : Traumatisme crânien modéré</li>
-          <li>Score de 3 à 8 : Traumatisme crânien sévère</li>
-        </ul>
+        <div className="mt-6 bg-blue-50 dark:bg-blue-900 p-4 rounded-lg">
+          <h2 className="text-lg font-semibold mb-2 text-blue-800 dark:text-blue-200">Résultat</h2>
+          <div className="text-2xl font-bold text-blue-900 dark:text-blue-100">
+            Score Total : {totalScore}
+          </div>
+          <div className="mt-2 text-lg text-blue-800 dark:text-blue-200">
+            Interprétation : {getScoreSeverity(totalScore)}
+          </div>
+        </div>
       </div>
     </div>
   );

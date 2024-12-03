@@ -80,53 +80,48 @@ const WellsScore: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-4 sm:p-6">
-      <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Score de Wells (Embolie Pulmonaire)</h1>
-      
-      <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-4 sm:mb-6">
-        {criteria.map((criterion) => (
-          <div key={criterion.id} className="mb-3 sm:mb-4">
-            <label className="flex items-start text-xs sm:text-sm font-medium text-gray-700">
-              <input
-                type="checkbox"
-                checked={selectedCriteria.has(criterion.id)}
-                onChange={() => toggleCriterion(criterion.id)}
-                className="mt-1 mr-2 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <span className="flex-1">
+    <div className="container mx-auto p-4 max-w-4xl dark:bg-gray-900">
+      <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
+        <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Score de Wells (TVP/EP)</h1>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {criteria.map((criterion) => (
+            <div key={criterion.id} className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+              <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
                 {criterion.text}
-                <span className="ml-1 text-gray-500">
-                  ({criterion.points} {criterion.points === 1 ? 'point' : 'points'})
-                </span>
-              </span>
-            </label>
+              </h2>
+              <div className="space-y-2">
+                <label className="inline-flex items-center text-gray-700 dark:text-gray-300">
+                  <input
+                    type="checkbox"
+                    checked={selectedCriteria.has(criterion.id)}
+                    onChange={() => toggleCriterion(criterion.id)}
+                    className="form-checkbox text-blue-600 dark:text-blue-500 mr-2"
+                  />
+                  <span>
+                    {criterion.text}
+                    <span className="ml-2 text-gray-500 dark:text-gray-400">
+                      ({criterion.points} points)
+                    </span>
+                  </span>
+                </label>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6 bg-blue-50 dark:bg-blue-900 p-4 rounded-lg">
+          <h2 className="text-lg font-semibold mb-2 text-blue-800 dark:text-blue-200">Résultat</h2>
+          <div className="text-2xl font-bold text-blue-900 dark:text-blue-100">
+            Score Total : {totalScore.toFixed(1)}
           </div>
-        ))}
-      </div>
-
-      <div className="bg-blue-50 rounded-lg p-4 sm:p-6">
-        <div className="text-lg sm:text-xl font-semibold mb-2">
-          Score total : {totalScore.toFixed(1)}
+          <div className="mt-2 text-lg text-blue-800 dark:text-blue-200">
+            Probabilité clinique : {getRisk(totalScore)}
+          </div>
+          <div className="mt-2 text-lg text-blue-800 dark:text-blue-200">
+            Recommandation : {getRecommendation(totalScore)}
+          </div>
         </div>
-        <div className="text-base sm:text-lg">
-          Probabilité clinique : {getRisk(totalScore)}
-        </div>
-        <div className="mt-2 text-sm sm:text-base text-gray-700">
-          Recommandation : {getRecommendation(totalScore)}
-        </div>
-      </div>
-
-      <div className="mt-4 sm:mt-6 text-xs sm:text-sm text-gray-600">
-        <h2 className="font-semibold mb-2">Interprétation :</h2>
-        <ul className="list-disc pl-4 sm:pl-5 space-y-1">
-          <li>Score ≤ 2 : Probabilité faible</li>
-          <li>Score 2-6 : Probabilité intermédiaire</li>
-          <li>Score &gt; 6 : Probabilité forte</li>
-        </ul>
-        <p className="mt-2">
-          Note : Ce score aide à évaluer la probabilité clinique d'embolie pulmonaire 
-          et guide la stratégie diagnostique.
-        </p>
       </div>
     </div>
   );

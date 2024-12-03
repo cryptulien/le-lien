@@ -89,151 +89,125 @@ const GraceScore: React.FC = () => {
     return "Risque : Élevé (mortalité hospitalière > 3%)";
   };
 
-  const NumberInput: React.FC<{
-    label: string;
-    value: number;
-    onChange: (value: number) => void;
-    min?: number;
-    max?: number;
-    step?: number;
-  }> = ({ label, value, onChange, min = 0, max = 999, step = 1 }) => {
-    const [inputValue, setInputValue] = React.useState(value.toString());
-
-    React.useEffect(() => {
-      setInputValue(value === 0 ? '' : value.toString());
-    }, [value]);
-
-    return (
-      <div className="mb-3 sm:mb-4">
-        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
-          {label}
-        </label>
-        <input
-          type="text"
-          inputMode="numeric"
-          pattern="[0-9]*"
-          value={inputValue}
-          onChange={(e) => {
-            const newValue = e.target.value.replace(/[^0-9]/g, '');
-            setInputValue(newValue);
-            const numValue = newValue === '' ? 0 : parseInt(newValue, 10);
-            if (!isNaN(numValue) && numValue >= min && numValue <= max) {
-              onChange(numValue);
-            }
-          }}
-          className="w-full p-2 text-sm sm:text-base border rounded-md bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
-    );
-  };
-
-  const Checkbox: React.FC<{
-    label: string;
-    checked: boolean;
-    onChange: (checked: boolean) => void;
-  }> = ({ label, checked, onChange }) => (
-    <div className="mb-3 sm:mb-4">
-      <label className="flex items-center text-xs sm:text-sm font-medium text-gray-700">
-        <input
-          type="checkbox"
-          checked={checked}
-          onChange={(e) => onChange(e.target.checked)}
-          className="mr-2 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-        />
-        {label}
-      </label>
-    </div>
-  );
-
   return (
-    <div className="w-full max-w-2xl mx-auto p-4 sm:p-6">
-      <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Score GRACE</h1>
-      
-      <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-4 sm:mb-6">
-        <NumberInput
-          label="Âge"
-          value={age}
-          onChange={setAge}
-          min={0}
-          max={120}
-        />
+    <div className="container mx-auto p-4 max-w-4xl">
+      <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
+        <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Score GRACE</h1>
         
-        <NumberInput
-          label="Fréquence cardiaque (bpm)"
-          value={heartRate}
-          onChange={setHeartRate}
-          min={0}
-          max={300}
-        />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Âge</h2>
+            <div className="mb-2">
+              <label className="block text-gray-700 dark:text-gray-300 mb-1">Âge (années)</label>
+              <input
+                type="number"
+                value={age}
+                onChange={(e) => setAge(Number(e.target.value))}
+                className="w-full p-2 border rounded bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
+              />
+            </div>
+          </div>
 
-        <NumberInput
-          label="Pression artérielle systolique (mmHg)"
-          value={systolicBP}
-          onChange={setSystolicBP}
-          min={0}
-          max={300}
-        />
+          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Signes vitaux</h2>
+            <div className="mb-2">
+              <label className="block text-gray-700 dark:text-gray-300 mb-1">Fréquence cardiaque</label>
+              <input
+                type="number"
+                value={heartRate}
+                onChange={(e) => setHeartRate(Number(e.target.value))}
+                className="w-full p-2 border rounded bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
+              />
+            </div>
+            <div className="mb-2">
+              <label className="block text-gray-700 dark:text-gray-300 mb-1">Pression artérielle systolique</label>
+              <input
+                type="number"
+                value={systolicBP}
+                onChange={(e) => setSystolicBP(Number(e.target.value))}
+                className="w-full p-2 border rounded bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
+              />
+            </div>
+          </div>
 
-        <NumberInput
-          label="Créatinine (mg/dL)"
-          value={creatinine}
-          onChange={setCreatinine}
-          min={0}
-          max={10}
-          step={0.1}
-        />
-
-        <div className="mb-3 sm:mb-4">
-          <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
-            Classe Killip
-          </label>
-          <select
-            value={killipClass}
-            onChange={(e) => setKillipClass(Number(e.target.value))}
-            className="w-full p-2 text-sm sm:text-base border rounded-md bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option value={1}>Classe I - Pas d'insuffisance cardiaque</option>
-            <option value={2}>Classe II - Râles crépitants, B3, HTAP</option>
-            <option value={3}>Classe III - Œdème pulmonaire franc</option>
-            <option value={4}>Classe IV - Choc cardiogénique</option>
-          </select>
+          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Autres paramètres</h2>
+            <div className="mb-2">
+              <label className="block text-gray-700 dark:text-gray-300 mb-1">Créatinine sérique</label>
+              <input
+                type="number"
+                value={creatinine}
+                onChange={(e) => setCreatinine(Number(e.target.value))}
+                className="w-full p-2 border rounded bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
+              />
+            </div>
+            <div className="mb-2">
+              <label className="block text-gray-700 dark:text-gray-300 mb-1">Classe Killip</label>
+              <select
+                value={killipClass}
+                onChange={(e) => setKillipClass(Number(e.target.value))}
+                className="w-full p-2 border rounded bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
+              >
+                <option value={1}>Classe I</option>
+                <option value={2}>Classe II</option>
+                <option value={3}>Classe III</option>
+                <option value={4}>Classe IV</option>
+              </select>
+            </div>
+          </div>
         </div>
 
-        <Checkbox
-          label="Arrêt cardiaque à l'admission"
-          checked={cardiacArrest}
-          onChange={setCardiacArrest}
-        />
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Antécédents</h2>
+            <div className="space-y-2">
+              {[
+                { label: 'Arrêt cardiaque à l\'admission', state: cardiacArrest, setState: setCardiacArrest },
+                { label: 'Élévation des marqueurs cardiaques', state: cardiacMarkers, setState: setCardiacMarkers },
+                { label: 'Déviation du segment ST', state: stSegmentDeviation, setState: setStSegmentDeviation }
+              ].map(({ label, state, setState }) => (
+                <label key={label} className="inline-flex items-center text-gray-700 dark:text-gray-300">
+                  <input
+                    type="checkbox"
+                    checked={state}
+                    onChange={() => setState(!state)}
+                    className="form-checkbox text-blue-600 dark:text-blue-500 mr-2"
+                  />
+                  <span>{label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
 
-        <Checkbox
-          label="Déviation du segment ST"
-          checked={stSegmentDeviation}
-          onChange={setStSegmentDeviation}
-        />
-
-        <Checkbox
-          label="Élévation des marqueurs cardiaques"
-          checked={cardiacMarkers}
-          onChange={setCardiacMarkers}
-        />
-      </div>
-
-      <div className="bg-blue-50 rounded-lg p-4 sm:p-6">
-        <div className="text-lg sm:text-xl font-semibold mb-2">
-          Score GRACE : {totalScore}
+          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Interventions</h2>
+            <div className="space-y-2">
+              {[
+                // Ajouter les interventions ici
+              ].map(({ label, state, setState }) => (
+                <label key={label} className="inline-flex items-center text-gray-700 dark:text-gray-300">
+                  <input
+                    type="checkbox"
+                    checked={state}
+                    onChange={() => setState(!state)}
+                    className="form-checkbox text-blue-600 dark:text-blue-500 mr-2"
+                  />
+                  <span>{label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="text-base sm:text-lg">
-          Risque : {getRisk(totalScore)}
-        </div>
-      </div>
 
-      <div className="mt-4 sm:mt-6 text-xs sm:text-sm text-gray-600">
-        <h2 className="font-semibold mb-2">Interprétation :</h2>
-        <ul className="list-disc pl-4 sm:pl-5 space-y-1">
-        <li>Score &le; 108 : Risque faible (mortalité hospitalière &lt;1%)</li>
-        <li>Score 109-140 : Risque intermédiaire (mortalité hospitalière 1-3%)</li>
-        <li>Score &gt; 140 : Risque élevé (mortalité hospitalière &gt;3%)</li>
-        </ul>
+        <div className="mt-6 bg-blue-50 dark:bg-blue-900 p-4 rounded-lg">
+          <h2 className="text-lg font-semibold mb-2 text-blue-800 dark:text-blue-200">Résultat</h2>
+          <div className="text-2xl font-bold text-blue-900 dark:text-blue-100">
+            Score Total : {totalScore}
+          </div>
+          <div className="mt-2 text-lg text-blue-800 dark:text-blue-200">
+            Risque de mortalité hospitalière : {getRisk(totalScore)}
+          </div>
+        </div>
       </div>
     </div>
   );

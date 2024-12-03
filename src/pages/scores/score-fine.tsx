@@ -198,119 +198,87 @@ const FineScore: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-4 sm:p-6">
-      <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Score FINE (PSI)</h1>
-      
-      <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-4 sm:mb-6">
-        {/* Données démographiques */}
-        <div className="mb-4">
-          <h2 className="text-lg font-semibold mb-3">Données démographiques</h2>
-          
-          <div className="mb-3">
-            <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
-              Âge
-            </label>
-            <input
-              type="number"
-              value={age}
-              onChange={(e) => setAge(Number(e.target.value))}
-              className="w-full p-2 text-sm sm:text-base border rounded-md"
-              min="0"
-              max="120"
-            />
-          </div>
-
-          <div className="mb-3">
-            <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
-              Sexe
-            </label>
-            <div className="flex gap-4">
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  checked={isMale}
-                  onChange={() => setIsMale(true)}
-                  className="mr-2"
-                />
-                Homme
-              </label>
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  checked={!isMale}
-                  onChange={() => setIsMale(false)}
-                  className="mr-2"
-                />
-                Femme
-              </label>
-            </div>
-          </div>
-        </div>
-
-        {/* Comorbidités */}
-        <div className="mb-4">
-          <h2 className="text-lg font-semibold mb-3">Comorbidités</h2>
-          {criteria.filter(c => c.type === 'checkbox').map((criterion) => (
-            <div key={criterion.id} className="mb-2">
-              <label className="flex items-start text-xs sm:text-sm font-medium text-gray-700">
-                <input
-                  type="checkbox"
-                  checked={selectedCriteria.has(criterion.id)}
-                  onChange={() => toggleCriterion(criterion.id)}
-                  className="mt-1 mr-2 h-4 w-4 text-blue-600"
-                />
-                <span className="flex-1">
-                  {criterion.text}
-                  <span className="ml-1 text-gray-500">
-                    ({typeof criterion.points === 'number' ? criterion.points : '?'} points)
-                  </span>
-                </span>
-              </label>
-            </div>
-          ))}
-        </div>
-
-        {/* Paramètres cliniques et biologiques */}
-        <div>
-          <h2 className="text-lg font-semibold mb-3">Paramètres cliniques et biologiques</h2>
-          {criteria.filter(c => c.type === 'number').map((criterion) => (
-            <div key={criterion.id} className="mb-3">
-              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
-                {criterion.text} {criterion.unit && `(${criterion.unit})`}
-              </label>
+    <div className="container mx-auto p-4 max-w-4xl">
+      <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
+        <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Score FINE</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Informations Démographiques</h2>
+            <div className="mb-4">
+              <label className="block text-gray-700 dark:text-gray-300 mb-2">Âge</label>
               <input
                 type="number"
-                value={numberValues[criterion.id]}
-                onChange={(e) => handleNumberChange(criterion.id, Number(e.target.value))}
-                className="w-full p-2 text-sm sm:text-base border rounded-md"
-                step="0.1"
+                value={age}
+                onChange={(e) => setAge(Number(e.target.value))}
+                className="w-full p-2 border rounded bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
               />
             </div>
-          ))}
+            <div className="mb-4">
+              <label className="block text-gray-700 dark:text-gray-300 mb-2">Sexe</label>
+              <div className="flex space-x-4">
+                <label className="inline-flex items-center text-gray-700 dark:text-gray-300">
+                  <input
+                    type="radio"
+                    checked={isMale}
+                    onChange={() => setIsMale(true)}
+                    className="form-radio text-blue-600 dark:text-blue-500"
+                  />
+                  <span className="ml-2">Homme</span>
+                </label>
+                <label className="inline-flex items-center text-gray-700 dark:text-gray-300">
+                  <input
+                    type="radio"
+                    checked={!isMale}
+                    onChange={() => setIsMale(false)}
+                    className="form-radio text-blue-600 dark:text-blue-500"
+                  />
+                  <span className="ml-2">Femme</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Critères</h2>
+            {criteria.filter(c => c.type === 'checkbox').map((criterion) => (
+              <div key={criterion.id} className="mb-2">
+                <label className="inline-flex items-center text-gray-700 dark:text-gray-300">
+                  <input
+                    type="checkbox"
+                    checked={selectedCriteria.has(criterion.id)}
+                    onChange={() => toggleCriterion(criterion.id)}
+                    className="form-checkbox text-blue-600 dark:text-blue-500"
+                  />
+                  <span className="ml-2">{criterion.text}</span>
+                </label>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="bg-blue-50 rounded-lg p-4 sm:p-6">
-        <div className="text-lg sm:text-xl font-semibold mb-2">
-          Score total : {totalScore}
+        <div className="mt-6 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+          <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Valeurs Numériques</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {Object.entries(numberValues).map(([key, value]) => (
+              <div key={key} className="mb-2">
+                <label className="block text-gray-700 dark:text-gray-300 mb-1">{key}</label>
+                <input
+                  type="number"
+                  value={value}
+                  onChange={(e) => handleNumberChange(key, Number(e.target.value))}
+                  className="w-full p-2 border rounded bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
+                />
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="text-base sm:text-lg">
-          Classe : {getClass(totalScore)}
-        </div>
-        <div className="text-base sm:text-lg">
-          Mortalité à 30 jours : {getMortality(totalScore)}
-        </div>
-      </div>
 
-      <div className="mt-4 sm:mt-6 text-xs sm:text-sm text-gray-600">
-        <h2 className="font-semibold mb-2">Interprétation :</h2>
-        <ul className="list-disc pl-4 sm:pl-5 space-y-1">
-          <li>Classe I (≤ 50 points) : Mortalité 0.1% - Traitement ambulatoire</li>
-          <li>Classe II (51-70 points) : Mortalité 0.6% - Traitement ambulatoire</li>
-          <li>Classe III (71-90 points) : Mortalité 2.8% - Hospitalisation courte</li>
-          <li>Classe IV (91-130 points) : Mortalité 8.2% - Hospitalisation</li>
-          <li>Classe V (&gt; 130 points) : Mortalité 29.2% - Hospitalisation</li>
-        </ul>
+        <div className="mt-6 bg-blue-50 dark:bg-blue-900 p-4 rounded-lg">
+          <h2 className="text-lg font-semibold mb-2 text-blue-800 dark:text-blue-200">Résultat</h2>
+          <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">Score Total : {totalScore}</p>
+          <p className="text-lg font-bold text-blue-900 dark:text-blue-100">Classe : {getClass(totalScore)}</p>
+          <p className="text-lg font-bold text-blue-900 dark:text-blue-100">Mortalité à 30 jours : {getMortality(totalScore)}</p>
+        </div>
       </div>
     </div>
   );

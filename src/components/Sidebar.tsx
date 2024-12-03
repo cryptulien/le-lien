@@ -98,13 +98,21 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onNavigate, activeIt
                   if (item.id === 'help') {
                     return (
                       <li key={item.label}>
-                        <Link
-                          to="/help"
-                          className="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                        <button
+                          onClick={() => {
+                            onNavigate(item.id);
+                            navigate(item.path);
+                            onClose();
+                          }}
+                          className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                            isActive
+                              ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
+                              : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'
+                          }`}
                         >
-                          <HelpCircle className="w-5 h-5" />
-                          <span>Aide</span>
-                        </Link>
+                          <HelpCircle className={`w-5 h-5 ${isActive ? 'text-blue-600 dark:text-blue-400' : ''}`} />
+                          <span className={isActive ? 'font-medium' : ''}>Aide</span>
+                        </button>
                       </li>
                     );
                   } else {
