@@ -23,6 +23,11 @@ import OtherPage from './pages/other';
 // Import card pages
 import TroublesConductionPage from './pages/cardio/troubles-conduction';
 import ArretCardioRespiratoire from './pages/cardio/arret-cardio-respiratoire';
+import GlasgowScore from './pages/scores/score-glasgow';
+import GraceScore from './pages/scores/score-grace';
+import WellsScore from './pages/scores/score-wells';
+import SofaScore from './pages/scores/score-sofa';
+import FineScore from './pages/scores/score-fine';
 
 // Import static pages
 import PrefaceContent from './components/PrefaceContent';
@@ -159,11 +164,16 @@ const AppContent = () => {
               />
             } />
             <Route path="/preface" element={<PrefaceContent />} />
-            <Route path="/preamble" element={<PreambuleContent />} />
+            <Route path="/preambule" element={<PreambuleContent />} />
             <Route path="/oath" element={<OathContent />} />
             <Route path="/help" element={<HelpContent />} />
             <Route path="/terms" element={<TermsContent />} />
             <Route path="/legal" element={<LegalContent />} />
+            <Route path="/scores/score-glasgow" element={<GlasgowScore />} />
+            <Route path="/scores/score-grace" element={<GraceScore />} />
+            <Route path="/scores/score-wells" element={<WellsScore />} />
+            <Route path="/scores/score-sofa" element={<SofaScore />} />
+            <Route path="/scores/score-fine" element={<FineScore />} />
             <Route path="/cardio" element={<CardioPage favorites={favoritesSet} onToggleFavorite={handleToggleFavorite} />} />
             <Route path="/respiratory" element={<RespiratoryPage favorites={favoritesSet} onToggleFavorite={handleToggleFavorite} />} />
             <Route path="/echo" element={<EchoPage favorites={favoritesSet} onToggleFavorite={handleToggleFavorite} />} />
