@@ -38,35 +38,6 @@ const MainContent: React.FC<MainContentProps> = ({
       .filter(card => favorites.has(card.id));
   };
 
-  if (currentView === 'preface') return (
-    <main className="flex-1 overflow-y-auto">
-      <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 md:px-8">
-        <PrefaceContent />
-      </div>
-    </main>
-  );
-  if (currentView === 'preamble') return (
-    <main className="flex-1 overflow-y-auto">
-      <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 md:px-8">
-        <PreambuleContent />
-      </div>
-    </main>
-  );
-  if (currentView === 'oath') return (
-    <main className="flex-1 overflow-y-auto">
-      <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 md:px-8">
-        <OathContent />
-      </div>
-    </main>
-  );
-  if (currentView === 'help') return (
-    <main className="flex-1 overflow-y-auto">
-      <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 md:px-8">
-        <HelpContent />
-      </div>
-    </main>
-  );
-
   return (
     <main className="flex-1 overflow-y-auto">
       <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 md:px-8">

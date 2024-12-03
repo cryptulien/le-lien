@@ -2,8 +2,9 @@ import React from 'react';
 import { Siren } from 'lucide-react';
 import CardList from '../../components/CardList';
 import { categories } from '../../data/categories';
+import { CategoryPageProps } from '../../types/pages';
 
-const TraumaPage = () => {
+const TraumaPage: React.FC<CategoryPageProps> = ({ favorites, onToggleFavorite }) => {
   const category = categories.find(cat => cat.id === 'trauma');
 
   if (!category) {
@@ -21,9 +22,8 @@ const TraumaPage = () => {
 
       <CardList
         cards={category.cards}
-        onCardClick={() => {}}
-        favorites={new Set()}
-        onToggleFavorite={() => {}}
+        favorites={favorites}
+        onToggleFavorite={onToggleFavorite}
       />
     </div>
   );

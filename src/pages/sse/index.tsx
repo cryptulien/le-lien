@@ -2,8 +2,9 @@ import React from 'react';
 import { Shield } from 'lucide-react';
 import CardList from '../../components/CardList';
 import { categories } from '../../data/categories';
+import { CategoryPageProps } from '../../types/pages';
 
-const SSEPage = () => {
+const SSEPage: React.FC<CategoryPageProps> = ({ favorites, onToggleFavorite }) => {
   const category = categories.find(cat => cat.id === 'sse');
 
   if (!category) {
@@ -21,9 +22,8 @@ const SSEPage = () => {
 
       <CardList
         cards={category.cards}
-        onCardClick={() => {}}
-        favorites={new Set()}
-        onToggleFavorite={() => {}}
+        favorites={favorites}
+        onToggleFavorite={onToggleFavorite}
       />
     </div>
   );

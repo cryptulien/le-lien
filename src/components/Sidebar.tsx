@@ -18,7 +18,14 @@ interface SidebarProps {
   activeItem: string;
 }
 
-const menuGroups = [
+type MenuItem = {
+  icon: LucideIcon;
+  label: string;
+  id: string;
+  path?: string;
+};
+
+const menuGroups: { title: string | null; items: MenuItem[] }[] = [
   {
     title: null,
     items: [
@@ -49,7 +56,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onNavigate, activeIt
     document.documentElement.classList.toggle('dark');
   };
 
-  const handleItemClick = (item: any) => {
+  const handleItemClick = (item: MenuItem) => {
     if (item.id === 'dark-mode') {
       toggleDarkMode();
     } else {
@@ -101,7 +108,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onNavigate, activeIt
                         <button
                           onClick={() => {
                             onNavigate(item.id);
-                            navigate(item.path);
+                            navigate(item.path!);
                             onClose();
                           }}
                           className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${

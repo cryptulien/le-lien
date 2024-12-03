@@ -182,19 +182,7 @@ const GraceScore: React.FC = () => {
           <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
             <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Interventions</h2>
             <div className="space-y-2">
-              {[
-                // Ajouter les interventions ici
-              ].map(({ label, state, setState }) => (
-                <label key={label} className="inline-flex items-center text-gray-700 dark:text-gray-300">
-                  <input
-                    type="checkbox"
-                    checked={state}
-                    onChange={() => setState(!state)}
-                    className="form-checkbox text-blue-600 dark:text-blue-500 mr-2"
-                  />
-                  <span>{label}</span>
-                </label>
-              ))}
+              {/* Section interventions vide pour le moment */}
             </div>
           </div>
         </div>

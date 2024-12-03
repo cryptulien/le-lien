@@ -2,8 +2,9 @@ import React from 'react';
 import { LayoutGrid } from 'lucide-react';
 import CardList from '../../components/CardList';
 import { categories } from '../../data/categories';
+import { CategoryPageProps } from '../../types/pages';
 
-const OtherPage = () => {
+const OtherPage: React.FC<CategoryPageProps> = ({ favorites, onToggleFavorite }) => {
   const category = categories.find(cat => cat.id === 'other');
 
   if (!category) {
@@ -21,9 +22,8 @@ const OtherPage = () => {
 
       <CardList
         cards={category.cards}
-        onCardClick={() => {}}
-        favorites={new Set()}
-        onToggleFavorite={() => {}}
+        favorites={favorites}
+        onToggleFavorite={onToggleFavorite}
       />
     </div>
   );
