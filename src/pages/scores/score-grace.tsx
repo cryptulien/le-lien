@@ -96,27 +96,36 @@ const GraceScore: React.FC = () => {
     min?: number;
     max?: number;
     step?: number;
-  }> = ({ label, value, onChange, min = 0, max = 999, step = 1 }) => (
-    <div className="mb-3 sm:mb-4">
-      <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
-        {label}
-      </label>
-      <input
-        type="text"
-        inputMode="numeric"
-        pattern="[0-9]*"
-        value={value === 0 ? '' : value}
-        onChange={(e) => {
-          const newValue = e.target.value.replace(/[^0-9]/g, '');
-          const numValue = newValue === '' ? 0 : parseInt(newValue, 10);
-          if (numValue >= min && numValue <= max) {
-            onChange(numValue);
-          }
-        }}
-        className="w-full p-2 text-sm sm:text-base border rounded-md bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-      />
-    </div>
-  );
+  }> = ({ label, value, onChange, min = 0, max = 999, step = 1 }) => {
+    const [inputValue, setInputValue] = React.useState(value.toString());
+
+    React.useEffect(() => {
+      setInputValue(value === 0 ? '' : value.toString());
+    }, [value]);
+
+    return (
+      <div className="mb-3 sm:mb-4">
+        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
+          {label}
+        </label>
+        <input
+          type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          value={inputValue}
+          onChange={(e) => {
+            const newValue = e.target.value.replace(/[^0-9]/g, '');
+            setInputValue(newValue);
+            const numValue = newValue === '' ? 0 : parseInt(newValue, 10);
+            if (!isNaN(numValue) && numValue >= min && numValue <= max) {
+              onChange(numValue);
+            }
+          }}
+          className="w-full p-2 text-sm sm:text-base border rounded-md bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+      </div>
+    );
+  };
 
   const Checkbox: React.FC<{
     label: string;
