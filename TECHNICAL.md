@@ -8,14 +8,17 @@
 - **Styling**: Tailwind CSS
 - **Icons**: Lucide React
 - **Build Tool**: Vite
-- **Deployment**: Netlify
+- **Deployment**: Vercel
 
 ### Project Structure
 ```
 src/
 ├── components/       # Reusable UI components
+├── config/           # Configuration files
+├── contexts/         # Context API implementations
 ├── data/            # Static data and configurations
 ├── hooks/           # Custom React hooks
+├── layouts/          # Layout components
 ├── pages/           # Page components and routing
 ├── types/           # TypeScript type definitions
 └── utils/           # Helper functions and utilities
@@ -49,6 +52,50 @@ src/
 - Real-time search functionality
 - Search suggestions dropdown
 - Category filtering
+
+## Detailed File Descriptions
+
+### Components (`src/components/`)
+- **AuthButton.tsx**: Handles authentication button logic.
+- **AuthStatus.tsx**: Displays user's authentication status.
+- **CardList.tsx**: Reusable component for displaying medical cards.
+- **CategoryGrid.tsx**: Displays a grid of categories.
+- **EquivalencesGrid.tsx**: Displays a grid of equivalences.
+- **Header.tsx**: Header component for the application.
+- **MainContent.tsx**: Renders main content based on current route.
+- **OathContent.tsx**: Displays oath content.
+- **PreambuleContent.tsx**: Displays preamble content.
+- **PrefaceContent.tsx**: Displays preface content.
+- **RecentCards.tsx**: Displays recent cards.
+- **ScoresGrid.tsx**: Displays a grid of scores.
+- **SearchBar.tsx**: Search bar with real-time suggestions.
+- **Sidebar.tsx**: Navigation menu with collapsible sections.
+- **layouts/**: Contains layout components.
+
+### Config (`src/config/`)
+- **firebase.ts**: Configuration for Firebase integration.
+
+### Contexts (`src/contexts/`)
+- **AuthContext.tsx**: Provides context for managing user authentication state.
+
+### Data (`src/data/`)
+- **categories.ts**: Static data and configurations for categories.
+
+### Hooks (`src/hooks/`)
+- **useFavorites.ts**: Custom hook for managing favorites.
+- **useLocalStorage.ts**: Custom hook for local storage interactions.
+
+### Layouts (`src/components/layouts/`)
+- **StaticPageLayout.tsx**: Layout component for structuring static pages.
+
+### Pages (`src/pages/`)
+- **LegalContent.tsx**: Content for legal pages.
+- **TermsContent.tsx**: Content for terms and conditions pages.
+- **Subdirectories**: Contain specific pages for various medical categories and sections.
+
+### Types (`src/types/`)
+- **index.ts**: General TypeScript type definitions.
+- **pages.ts**: Type definitions specific to pages.
 
 ## State Management
 
@@ -168,19 +215,37 @@ interface Card {
    - SVG icons from Lucide React
    - Responsive images with proper sizing
 
-## Deployment
+## Application Workflow
 
-### Netlify Configuration
-```toml
-# public/_redirects
-/* /index.html 200
-```
+This section describes the typical user flow within the application, detailing how users navigate from the homepage to specific features.
 
-### Build Process
-1. TypeScript compilation
-2. Vite production build
-3. Asset optimization
-4. Deployment to Netlify
+## State Management
+
+The application uses React's Context API to manage global state, including user authentication and theme preferences.
+
+## External APIs and Services
+
+The application integrates with Firebase for authentication and data storage. Firebase configuration details are provided in the `src/config/firebase.ts` file.
+
+## Security and Authentication
+
+User authentication is handled through Firebase, ensuring secure login and data protection. Authentication state is managed using the `AuthContext`.
+
+## Testing and Quality Assurance
+
+The project employs unit and integration tests to ensure code quality and reliability. Testing frameworks like Jest and React Testing Library are used.
+
+## Deployment and CI/CD
+
+The application is deployed on Netlify, with a CI/CD pipeline set up to automate testing and deployment processes.
+
+## Error Handling and Logging
+
+Error boundaries are implemented to catch and handle errors gracefully. Logging is performed using console statements and integrated monitoring tools.
+
+## Accessibility and Internationalization
+
+The application follows accessibility best practices to ensure usability for all users. Internationalization support is planned for future releases.
 
 ## Development Guidelines
 
