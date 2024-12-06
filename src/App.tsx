@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import Sidebar from './components/Sidebar';
 import SearchBar from './components/SearchBar';
 import MainContent from './components/MainContent';
-import React, { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { categories } from './data/categories';
 import { useFavorites } from './hooks/useFavorites';
 import type { Category, Card } from './types';
