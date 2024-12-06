@@ -123,3 +123,8 @@ Pour signaler une erreur ou suggérer une amélioration :
 
 Tous droits réservés © Le LIEN - Association loi 1901
 Toute reproduction non autorisée est interdite.
+
+## To Do List
+- https://reactflow.dev/components/nodes/base-node pour interagir sur des box et mettre en place les fiches de façon non PDF
+- https://supabase.com/docs/reference/javascript/introduction librairie javascript pour supabase
+- https://github.com/vercel/next.js/tree/canary/examples/with-supabase-auth librairie next.js pour supabase authentification
